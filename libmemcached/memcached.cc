@@ -146,6 +146,8 @@ static void __memcached_free(Memcached *ptr, bool release_st)
 
   libmemcached_free(ptr, ptr->ketama.continuum);
   ptr->ketama.continuum= NULL;
+  ptr->ketama.continuum_count= 0;
+  ptr->ketama.continuum_points_counter= 0;
 
   memcached_array_free(ptr->_namespace);
   ptr->_namespace= NULL;
@@ -285,6 +287,8 @@ void memcached_servers_reset(memcached_st *shell)
   {
     libmemcached_free(self, self->ketama.continuum);
     self->ketama.continuum= NULL;
+    self->ketama.continuum_count= 0;
+    self->ketama.continuum_points_counter= 0;
 
     memcached_instance_list_free(memcached_instance_list(self), self->number_of_hosts);
     memcached_instance_set(self, NULL, 0);
